@@ -1,6 +1,15 @@
 from typing import Optional, List
 
 
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
+    def __repr__(self):
+        return f'{self.val}'
+
+
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -443,8 +452,65 @@ class Solution:
         _list = list(_dict.keys())
         return _list[0]
 
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
+        pA = headA
+        pB = headB
+        while pA != pB:
+            if not pA:
+                pA = headB
+            else:
+                pA = pA.next
 
-def display_tree(root, display_none=False, width=80, factor=0.5):
+            if not pB:
+                pB = headA
+            else:
+                pB = pB.next
+
+        return pA
+
+    def removeElements(self, head: Optional[ListNode], val: int) -> Optional[ListNode]:
+        previous = None
+        current = head
+        while current:
+            if current.val == val:
+                if previous:
+                    previous.next = current.next
+                    current = current.next
+                    continue
+                else:
+                    head = current.next
+                    current = current.next
+                    continue
+            previous = current
+            current = current.next
+        while head:
+            print(head, end=" ")
+            head = head.next
+
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        current = head
+        previous = None
+        while current:
+            _next = current.next
+            current.next = previous
+            previous = current
+            current = _next
+        head = previous
+        while head:
+            print(head, end=' ')
+            head = head.next
+
+
+def display_tree(root, display_none=False, width=80, factor=0.5, count_print=3):
+    """
+    Отображает в консоли 'двоичное дерево'.
+    :param root: Дерево.
+    :param display_none: True отображает None.
+    :param width: Ширина отступа между узлами.
+    :param factor: Множитель уменьшающий ширину отступа в зависимости от глубины дерева.
+    :param count_print: Высота вертикального отступа между узлами
+    :return:
+    """
     if display_none:
         zero = 'None'
     else:
@@ -465,8 +531,7 @@ def display_tree(root, display_none=False, width=80, factor=0.5):
                     next_list.append(None)
             else:
                 print(f'{zero:^{width}}', end='')
-        print('')
-        # print('')
+        print('', end='\n' * count_print)
         if next_list.count(None) == len(next_list):
             next_list = []
         current_list = next_list

@@ -1,10 +1,10 @@
 class Node:
     def __init__(self, data, next=None):
-        self.data = data
+        self.val = data
         self.next = next
 
     def __str__(self):
-        return str(self.data)
+        return str(self.val)
 
 
 class LinkedList:
@@ -33,13 +33,13 @@ class LinkedList:
     def remove(self, data):
         if self.head is None:
             raise ValueError('value not found')
-        if self.head.data == data:
+        if self.head.val == data:
             self.head = self.head.next
             return
         current = self.head.next
         previous = self.head
         try:
-            while current.data != data:
+            while current.val != data:
                 previous = current
                 current = current.next
             previous.next = current.next
@@ -53,7 +53,7 @@ class LinkedList:
             return is_contains
         current = self.head
         while current:
-            if current.data == data:
+            if current.val == data:
                 is_contains = True
                 return is_contains
             current = current.next
@@ -77,7 +77,7 @@ class LinkedList:
             return node
         current = self.head
         while current:
-            if current.data == data:
+            if current.val == data:
                 node = current
                 return node
             current = current.next

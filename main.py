@@ -17,6 +17,10 @@ LIST_NUMS = [2, 774, 647, 905, 906, 143, 400, 406, 672, 168, 680, 44, 304, 307, 
 LIST_NODES = [5, 4, 8, 11, None, 13, 6, 7, 2, None, None, None, 1]
 
 COUNT_ITER = 0
+GRAPH = {'A': {'B': 2, 'C': 6},
+         'B': {'D': 5},
+         'C': {'D': 8},
+         'D': {}}
 
 
 def bubble_sort(sec):
@@ -131,9 +135,10 @@ def delete_duplicate(a_str):
 
 
 if __name__ == '__main__':
-    l = [1, 8, 50, 13, 40, 73, 52, 24, 33, 77, 47, 71, 100, 83, 74, 55, 69, 94]
-    print(l)
-
-    root = create_tree_node(l)
-    display_tree(root)
-    print(is_min_heap(root))
+    linked_list = LinkedList()
+    for i in [1, 2, 3, 4, 5]:
+        linked_list.append(i)
+    head = linked_list.head
+    print(head)
+    s = Solution()
+    s.reverseList(head)

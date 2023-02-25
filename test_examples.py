@@ -1,3 +1,22 @@
+import heapq
+
+
+def dijkstra(gr, start_v):
+    distances = {vertex: float('infinity') for vertex in gr}
+    distances[start_v] = 0
+    pq = [(0, start_v)]
+    while len(pq) > 0:
+        current_distance, current_vertex = heapq.heappop(pq)
+        if current_distance > distances[current_vertex]:
+            continue
+        for neighbor, weight in gr[current_vertex].items():
+            distance = current_distance + weight
+            if distance < distances[neighbor]:
+                distances[neighbor] = distance
+                heapq.heappush(pq, (weight, neighbor))
+    return distances
+
+
 def check_bracket(_str):
     list_brackets = []
     for s in _str:
