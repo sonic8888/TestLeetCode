@@ -500,6 +500,134 @@ class Solution:
             print(head, end=' ')
             head = head.next
 
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        one_list = [root]
+        two_list = []
+        while one_list:
+            node = one_list.pop(0)
+            # print(node)
+            left_node = None
+            right_node = None
+            if node.left:
+                left_node = node.left
+                two_list.append(left_node)
+            if node.right:
+                right_node = node.right
+                two_list.append(right_node)
+            node.left = right_node
+            node.right = left_node
+            if not one_list:
+                one_list = two_list
+                two_list = []
+        return root
+
+    def isPowerOfTwo(self, n: int) -> bool:
+        return n and not n & n - 1
+
+    def isPalindrome(self, head: Optional[ListNode]) -> bool:
+        _stack = []
+        while head:
+            _stack.append(head.val)
+            head = head.next
+        return _stack == _stack[::-1]
+
+    def isAnagram(self, s: str, t: str) -> bool:
+        if len(s) != len(t):
+            return False
+        dict_s = {}
+        dict_t = {}
+        for i in range(len(s)):
+            lit_s = s[i]
+            lit_t = t[i]
+            if lit_s in dict_s:
+                dict_s[lit_s] = dict_s[lit_s] + 1
+            else:
+                dict_s[lit_s] = 1
+            if lit_t in dict_t:
+                dict_t[lit_t] = dict_t[lit_t] + 1
+            else:
+                dict_t[lit_t] = 1
+        return dict_s == dict_t
+
+    def binaryTreePaths(self, root: Optional[TreeNode]) -> List[str]:
+        list_str = []
+
+        def recursive_traversal(r, _str=''):
+
+            if r:
+                _str += str(r.val) + '->'
+                if not r.left and not r.right:
+                    list_str.append(_str[:-2])
+                    return
+                recursive_traversal(r.left, _str)
+                recursive_traversal(r.right, _str)
+
+        recursive_traversal(root)
+        print(list_str)
+        return list_str
+
+    def addDigits(self, num: int) -> int:
+
+        def get_digits(n):
+            if n > 0:
+                rem = n % 10
+                # _list.append(rem)
+                n = n - rem
+                n //= 10
+                return rem + get_digits(n)
+            else:
+                return 0
+
+        while num >= 10:
+            num = get_digits(num)
+        print(num)
+        return num
+
+    def isUgly(self, n: int) -> bool:
+        if n <= 0:
+            return False
+        while n % 2 == 0:
+            n /= 2
+        while n % 3 == 0:
+            n /= 3
+        while n % 5 == 0:
+            n /= 5
+        return n == 1
+
+    def missingNumber(self, nums: List[int]) -> int:
+        # initialize missing_num to n
+        missing_num = len(nums)
+
+        # loop through the array nums
+        for i, num in enumerate(nums):
+            # perform XOR operation with index and element
+            ind = i ^ num
+            missing_num ^= ind
+
+        # return the missing number
+        return missing_num
+
+    def firstBadVersion(self, n: int) -> int:
+
+        start = 0
+        end = n
+        while (end - start) > 1:
+            mid = (start + end) // 2
+            if isBadVersion(mid):
+                end = mid
+            else:
+                start = mid
+        return end
+
+    def moveZeroes(self, nums: List[int]) -> None:
+
+        index = 0
+        for j in range(len(nums)):
+            if nums[j]:
+                nums[index], nums[j] = nums[j], nums[index]
+                index += 1
+        print(nums)
+
 
 def display_tree(root, display_none=False, width=80, factor=0.5, count_print=3):
     """
@@ -560,3 +688,10 @@ def create_tree_node(a_list):
         current_list = next_list
         next_list = []
     return root
+
+
+def isBadVersion(n):
+    if n >= 99:
+        return True
+    else:
+        return False

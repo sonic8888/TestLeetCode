@@ -1,6 +1,42 @@
 import heapq
 
 
+class MyQueue:
+
+    def __init__(self):
+        self.stack_one = []
+        self.stack_two = []
+
+    def push(self, x: int) -> None:
+        self.stack_one.append(x)
+
+    def pop(self) -> int:
+        if self.stack_one:
+            while self.stack_one:
+                self.stack_two.append(self.stack_one.pop())
+            temp = self.stack_two.pop()
+            while self.stack_two:
+                self.stack_one.append(self.stack_two.pop())
+        else:
+            raise IndexError('MyQueue is empty')
+        return temp
+
+    def peek(self) -> int:
+        if self.stack_one:
+            while self.stack_one:
+                self.stack_two.append(self.stack_one.pop())
+            temp = self.stack_two.pop()
+            self.stack_one.append(temp)
+            while self.stack_two:
+                self.stack_one.append(self.stack_two.pop())
+        else:
+            raise IndexError('MyQueue is empty')
+        return temp
+
+    def empty(self) -> bool:
+        return len(self.stack_one) == 0
+
+
 def dijkstra(gr, start_v):
     distances = {vertex: float('infinity') for vertex in gr}
     distances[start_v] = 0
@@ -123,3 +159,18 @@ def is_min_heap(root):
         current_list = next_list
         next_list = []
     return True
+
+
+def binary_search(a_list, n):
+    mid = -1
+    while mid != 0:
+        mid = len(a_list) // 2
+        if a_list[mid] == n:
+            return True
+        elif a_list[mid] < n:
+            a_list = a_list[mid + 1:]
+        else:
+            a_list = a_list[:mid]
+    return False
+
+

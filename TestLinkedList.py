@@ -6,6 +6,9 @@ class Node:
     def __str__(self):
         return str(self.val)
 
+    def __repr__(self):
+        return str(self.val)
+
 
 class LinkedList:
     def __init__(self):
@@ -98,3 +101,16 @@ class LinkedList:
                     return True
         except:
             return False
+
+
+def create_linked_list(a_list):
+    head = None
+    current_node = None
+    for n in a_list:
+        if head is None:
+            head = Node(n)
+            current_node = head
+        else:
+            current_node.next = Node(n)
+            current_node = current_node.next
+    return head
