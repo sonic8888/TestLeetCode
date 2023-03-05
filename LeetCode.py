@@ -1,3 +1,4 @@
+from itertools import zip_longest
 from typing import Optional, List
 
 
@@ -626,6 +627,31 @@ class Solution:
             if nums[j]:
                 nums[index], nums[j] = nums[j], nums[index]
                 index += 1
+        print(nums)
+
+    def wordPattern(self, pattern: str, s: str) -> bool:
+        # s = s.split()
+        # a = set(pattern)
+        # b = set(s)
+        # z = zip(a, b)
+        # z = set(z)
+        # print(z)
+        # return len(a) == len(b) == len(z)
+        s = s.split()
+        a = set(pattern)
+        b = set(s)
+        z = set(zip_longest(pattern, s))
+        return (len(set(pattern)) ==
+                len(set(s)) ==
+                len(set(zip_longest(pattern, s))))
+
+
+class NumArray:
+    def __init__(self, nums):
+        self.list_summ = [0] * (len(nums) + 1)
+        for i in range(len(nums)):
+            self.list_summ[i + 1] = self.list_summ[i] + nums[i]
+        print(self.list_summ)
         print(nums)
 
 
