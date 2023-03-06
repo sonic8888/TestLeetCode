@@ -181,5 +181,6 @@ if __name__ == '__main__':
         previous = current
         current = root
     root = previous
+    print("hello")
 
     display_linked_list(root)
