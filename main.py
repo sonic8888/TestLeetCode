@@ -1,7 +1,9 @@
+import math
 import random
 from TestLinkedList import Node
-
+from test_examples import My_Stack_Array, Stack_min
 from LeetCode import *
+from collections import Counter
 
 LIST_NUMS = [2, 774, 647, 905, 906, 143, 400, 406, 672, 168, 680, 44, 304, 307, 692, 571, 830,
              63, 62, 322, 199, 584, 717, 208, 848, 214, 88, 473, 483, 611, 357, 745, 880, 114, 254, 891, 766, 895]
@@ -160,27 +162,19 @@ def display_linked_list(r):
         r = r.next
     print()
 
-if __name__ == '__main__':
-    index_even = 0
-    _l = [0, 1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 13, 15, 19, 20]
-    root = None
-    node = None
-    for i, n in enumerate(_l):
-        if root:
-            node.next = Node(n)
-            node = node.next
-        else:
-            node = Node(n)
-            root = node
-    display_linked_list(root)
-    previous = None
-    current = root
-    while root:
-        root = root.next
-        current.next = previous
-        previous = current
-        current = root
-    root = previous
-    print("hello")
 
-    display_linked_list(root)
+if __name__ == '__main__':
+    res = 1
+    # for i in range(10000):
+    #     res = i * i
+    #     print(f"{i:8} {res:>11}")
+    # print(math.sqrt(2 ** 31))
+    # 46340
+    s = Solution()
+    s.findTheDifference("", "y")
+    # st = 'aa'
+    # c = Counter('aa')
+    # b = Counter('aab')
+    # print(f'c={c}')
+    # print(f'b={b}')
+    # print(c & b)

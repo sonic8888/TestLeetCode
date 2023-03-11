@@ -1,5 +1,7 @@
 from itertools import zip_longest
 from typing import Optional, List
+from collections import deque, Counter
+from test_examples import guess
 
 
 class ListNode:
@@ -644,6 +646,133 @@ class Solution:
         return (len(set(pattern)) ==
                 len(set(s)) ==
                 len(set(zip_longest(pattern, s))))
+
+    def isPowerOfThree(self, n: int) -> bool:
+        # if n <= 0:
+        #     return False
+        # while n > 1:
+        #     if n % 3 != 0:
+        #         return False
+        #     n //= 3
+        #
+        # return True
+        if n <= 0:
+            return False
+        if n // 3 == 1 and n % 3 == 0:
+            return True
+        if n // 3 == 1 and n % 3 != 0:
+            return False
+        n //= 3
+        return self.isPowerOfThree(n)
+
+    def isPowerOfFour(self, n: int) -> bool:
+        if n <= 0:
+            return False
+
+        while n > 1:
+            if n % 4 != 0:
+                return False
+            n //= 4
+        return True
+
+    def reverseString(self, s: List[str]) -> None:
+        print(s)
+        for i in range(len(s) // 2):
+            # temp = s[i]
+            s[i], s[len(s) - i - 1] = s[len(s) - i - 1], s[i]
+            # s[len(s) - i - 1] = temp
+        print(s)
+
+    def reverseVowels(self, s: str) -> str:
+        print(s)
+        dict_vowels = {"a": None, 'e': None, 'i': None, 'o': None, 'u': None, 'A': None, 'E': None, 'I': None,
+                       'O': None, 'U': None}
+        s = list(s)
+        left = deque()
+        right = deque()
+        for i in range(len(s)):
+            if s[i] in dict_vowels:
+                left.append(i)
+            if s[len(s) - i - 1] in dict_vowels:
+                right.append(len(s) - i - 1)
+            if len(left) and len(right):
+                _l = left.popleft()
+                _r = right.popleft()
+                if _l > _r:
+                    break
+                s[_l], s[_r] = s[_r], s[_l]
+                # print(''.join(s))
+                # print(f'left:{_l} right:{_r}')
+                # print("")
+
+        s = ''.join(s)
+        print(s)
+
+    def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        pass
+
+    def isPerfectSquare(self, num: int) -> bool:
+        if num % 10 in [2, 3, 7, 8]:
+            return False
+        mn = len(str(num)) // 2
+        start = 10 ** (mn - 1)
+        end = 46340
+
+        while end - start != 1:
+            mid = (start + end) // 2
+            if mid * mid == num:
+                return True
+            if mid * mid > num:
+                end = mid
+            else:
+                start = mid
+        return False
+
+    def guessNumber(self, n: int) -> int:
+        start = 0
+        end = n
+        while start <= end:
+            mid = (end + start) // 2
+            res = guess(mid)
+            if res == 0:
+                return mid
+            elif res < 0:
+                end = mid - 1
+            else:
+                start = mid + 1
+
+    def canConstruct(self, ransomNote: str, magazine: str) -> bool:
+        # list_magazine = list(magazine)
+        dict_mag = {}
+        for ch in ransomNote:
+            start_index = dict_mag.get(ch, 0)
+            find_index = magazine.find(ch, start_index)
+            if find_index == -1:
+                return False
+            else:
+                dict_mag[ch] = find_index + 1
+
+        return True
+
+    def firstUniqChar(self, s: str) -> int:
+        dict_char = {}
+        for i in range(len(s)):
+            if s[i] in dict_char:
+                dict_char[s[i]] = 100000
+            else:
+                dict_char[s[i]] = i
+        _min = min(dict_char.values())
+        if _min == 100000:
+            return -1
+        else:
+            return _min
+
+    def findTheDifference(self, s: str, t: str) -> str:
+        dict_s = Counter(s)
+        dict_t = Counter(t)
+        sub_dict = dict_t - dict_s
+        keys = sub_dict.popitem()
+        return keys[0]
 
 
 class NumArray:
