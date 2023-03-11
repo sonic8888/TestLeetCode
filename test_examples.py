@@ -137,6 +137,64 @@ class My_Queue:
         return str(self.st_1)
 
 
+class My_Stack_Array:
+    def __init__(self):
+        self._list = []
+        self._size = 0
+
+    def push(self, data):
+        self._list.append(data)
+        self._size += 1
+
+    def pop(self):
+        if self._size:
+            self._size -= 1
+            return self._list.pop()
+        else:
+            raise IndexError("My_Stack_Array is empty!")
+
+    def peek(self):
+        if self._size:
+            return self._list[self._size - 1]
+        else:
+            raise IndexError("My_Stack_Array is empty!")
+
+    def count(self):
+        return self._size
+
+    def is_empty(self):
+        return self._size == 0
+
+    def __repr__(self):
+        return str(self._list)
+
+
+class Stack_min:
+    def __init__(self):
+        self._main = []
+        self._min = []
+
+    def push(self, data):
+        if not self._min:
+            self._min.append(data)
+        else:
+            if self._min[-1] > data:
+                self._min.append(data)
+            else:
+                self._min.append(self._min[-1])
+        self._main.append(data)
+
+    def pop(self):
+        self._main.pop()
+        self._min.pop()
+
+    def peek_min(self):
+        return self._min[-1]
+
+    def is_empty(self):
+        return len(self._main) == 0
+
+
 def is_min_heap(root):
     """
     Обход дерева в ширину
@@ -174,3 +232,10 @@ def binary_search(a_list, n):
     return False
 
 
+def guess(num: int, x=1):
+    if num > x:
+        return -1
+    elif num == x:
+        return 0
+    else:
+        return 1
