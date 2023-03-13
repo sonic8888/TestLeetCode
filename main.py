@@ -172,7 +172,7 @@ if __name__ == '__main__':
     # 46340
     s = Solution()
     s.findTheDifference("", "y")
-    # st = 'aa'
+    st = 'aa'
     c = Counter('aa')
     b = Counter('aab')
     print(f'c={c}')
